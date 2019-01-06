@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
-import './style.css'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import { AuthHolder } from '../../components'
+import Login from '../Login'
+import Register from '../Register'
+import Home from '../Home'
 
 class App extends Component {
 
-  onLogin = () => {
-    console.log('on login click')
-  }
-
-  onRegister = () => {
-    console.log('on register click')
-  }
-
   render() {
     return (
-      <div>
-        <AuthHolder 
-          onLogin={() => this.onLogin()}
-          onRegister={() => this.onRegister()}
-          />
-      </div>
-      
+      <Router>
+        <div>
+          <Switch>
+            <Route exact component={Home} path='/'></Route>
+            <Route exact component={Login} path='/login'></Route>
+            <Route exact component={Register} path='/register'></Route>
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
