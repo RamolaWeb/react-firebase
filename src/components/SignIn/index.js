@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { TextField, Button, Snackbar } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { TextField, Button, Snackbar } from '@material-ui/core'
+
 import './style.css'
 
-export default class SignUp extends Component {
+export default class SignIn extends Component {
     static propTypes = {
-        onSignUp: PropTypes.func.isRequired
+        onSignIn: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -13,8 +14,8 @@ export default class SignUp extends Component {
         this.state = {
             email: '',
             password: '',
-            open: false,
             action: '',
+            open: false,
         }
     }
 
@@ -24,37 +25,31 @@ export default class SignUp extends Component {
         })
     }
 
-    onSignUpClick = () => {
-        const { onSignUp } = this.props
-        const { email, password, confirmPassword } = this.state
-        if(email && password === confirmPassword)
-            onSignUp(email, password)
-        else if(password !== confirmPassword) {
-            this.setState({
-                open: true,
-                action: 'Please make sure to confirm your password'
-            })
+    onSignInClick = () => {
+        const { onSignIn } = this.props
+        const { email, password } = this.state
+        if(email && password) {
+            onSignIn(email, password)
         }
         else if(!email) {
             this.setState({
+                action: 'Please Enter a Email',
+                open: false,
+            })
+        }
+        else if(!password) {
+            this.setState({
+                action: 'Please Enter a Password',
                 open: true,
-                action: 'Please enter a email'
             })
         }
     }
 
-    onSnackBarClose = () => {
-        this.setState({
-            open: false,
-            action: '',
-        })
-    }
-
     render() {
-        const { email, password, confirmPassword, open, action } = this.state
+        const { email, password, open, action } = this.state
         return(
-            <div className='container'>
-              <Snackbar 
+            <div>
+                <Snackbar 
                 onClose={() => this.onSnackBarClose()}
                 open={open}
                 action={action}
@@ -62,7 +57,7 @@ export default class SignUp extends Component {
                 />
               <TextField 
                 onChange={e => this.onTextChanged('email', e)}
-                id='email'
+                id='emailSignIn'
                 label='Email'
                 type='text'
                 variant='outlined'
@@ -70,26 +65,18 @@ export default class SignUp extends Component {
               />
               <TextField 
                   onChange={e => this.onTextChanged('password', e)}
-                  id='password'
+                  id='passwordSignIn'
                   label='Password'
                   type='password'
                   variant='outlined'
                   value={password}
               />
-              <TextField 
-                  onChange={e => this.onTextChanged('confirmPassword', e)}
-                  id='confirmPassword'
-                  label='Confirm Password'
-                  type='password'
-                  variant='outlined'
-                  value={confirmPassword}
-              />
               <Button
-                onClick={() => this.onSignUpClick()}
+                onClick={() => this.onSignInClick()}
                 size="large"
                 variant="contained"
                 color="primary">
-                Sign Up
+                Sign In
               </Button>
             </div>
         )
