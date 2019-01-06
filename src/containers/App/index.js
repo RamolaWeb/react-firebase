@@ -1,38 +1,25 @@
 import React, { Component } from 'react'
 import './style.css'
 
-import { SignUp, SignIn } from '../../components'
-import app from '../../utils/firebaseConfig'
+import { AuthHolder } from '../../components'
 
 class App extends Component {
-  
-  onSignUpClick = (email, password) => {
-    app.auth().createUserWithEmailAndPassword(email, password)
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+
+  onLogin = () => {
+    console.log('on login click')
   }
 
-  onSignInClick = (email, password) => {
-    app.auth().signInWithEmailAndPassword(email, password)
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  onRegister = () => {
+    console.log('on register click')
   }
 
   render() {
     return (
       <div>
-        <SignUp
-          onSignUp={(email, password) => this.onSignUpClick(email, password)}/>
-        <SignIn
-          onSignIn={(email, password) => this.onSignInClick(email, password)}/>  
+        <AuthHolder 
+          onLogin={() => this.onLogin()}
+          onRegister={() => this.onRegister()}
+          />
       </div>
       
     )
