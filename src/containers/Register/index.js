@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { auth } from '../../utils/firebaseConfig'
+
 import { SignUp } from '../../components'
 import { signUpWithEmailAndPassword, registerGoogleAuth } from '../../actions'
 import { isSignUp, isSignedUp,
@@ -23,6 +25,15 @@ class Register extends Component {
     isRegistered: false,
     isErrorRegister: false,
     errorMessageInRegister: '',
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const { history } = this.props
+        history.push('/dashboard')
+      }
+    })
   }
   
   onSignUpClick = (email, password) => {

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
+
+import { auth } from '../../utils/firebaseConfig'
 
 import { SignIn } from '../../components'
 import { signInWithEmailAndPassword, googleAuth } from '../../actions'
@@ -21,6 +24,16 @@ class Login extends Component {
       isLoggedIn: false,
       isLoggingError: false,
       errorMessageLogIn: '',
+    }
+
+    // Add Some Method to show indicator after redirect
+    componentDidMount() {
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          const { history } = this.props
+          history.push('/dashboard')
+        }
+      })
     }
 
     onSignInClick = (email, password) => {
@@ -46,8 +59,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  const isLogingIn = isSignedIn(state)
-  const isLoggedIn = isSigningIn(state)
+  const isLogingIn = isSigningIn(state)
+  const isLoggedIn = isSignedIn(state)
   const isLoggingError = isErrorInLogin(state)
   const errorMessageLogIn = getErrorInLogin(state)
   return {
@@ -58,7 +71,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {
+ export default withRouter(connect(mapStateToProps, {
   logIn: signInWithEmailAndPassword,
   googleSignIn: googleAuth,
-})(Login)
+})(Login))

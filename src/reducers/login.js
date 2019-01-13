@@ -13,12 +13,14 @@ const initialState = Map({
 export default {
   login: createReducer(initialState, {
       [ACTION_TYPES.SET_LOGIN_EMAIL_PASSWORD]: (state, action) => {
+          console.log('login reducer', action)
           return state.withMutations(stateMap => {
               stateMap.set('isSignedIn', true)
               stateMap.set('isSigningIn', false)
           })
       },
       [ACTION_TYPES.ERROR_LOGIN_EMAIL_PASSWORD]: (state, action) => {
+        console.log('login reducer error ', action)
           return state.withMutations(stateMap => {
               stateMap.set('errorInLogin', 'Error Occured While Login')
               stateMap.set('isSignedIn', false)

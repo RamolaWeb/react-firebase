@@ -11,6 +11,7 @@ import saga from '../../sagas'
 import Login from '../Login'
 import Register from '../Register'
 import Home from '../Home'
+import Dashboard from '../Dashboard'
 
 // create our store
 const sagaMiddleware = createSagaMiddleware()
@@ -40,6 +41,7 @@ class App extends Component {
               <Route exact component={Home} path='/'></Route>
               <Route exact component={Login} path='/login'></Route>
               <Route exact component={Register} path='/register'></Route>
+              <Route exact component={Dashboard} path='/dashboard'></Route>
             </Switch>
         </Router>
       </Provider>
