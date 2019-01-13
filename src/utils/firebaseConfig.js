@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import * as firebase from 'firebase'
 
 const config = {
     apiKey: "AIzaSyAmpkaZX_QH2pQB_FbHrYAYEqucBM-ioaU",
@@ -9,6 +9,8 @@ const config = {
     messagingSenderId: "214985952167"
   };
 
-const app = firebase.initializeApp(config)
+firebase.initializeApp(config)
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export default app
+export { googleAuthProvider }
+export default firebase

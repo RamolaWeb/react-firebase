@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { TextField, Button, Snackbar } from '@material-ui/core'
+import { TextField, Button, Snackbar, Card,
+    CardContent, } from '@material-ui/core'
+
+import SocialButton from '../SocialButton'
 
 import './style.css'
 
 export default class SignIn extends Component {
     static propTypes = {
+        onGoogleClick: PropTypes.func.isRequired,
         onSignIn: PropTypes.func.isRequired,
     }
 
@@ -47,37 +51,69 @@ export default class SignIn extends Component {
 
     render() {
         const { email, password, open, action } = this.state
+        const { onGoogleClick } = this.props
         return(
-            <div>
+            <div
+              className='container'
+            >
                 <Snackbar 
                 onClose={() => this.onSnackBarClose()}
                 open={open}
                 action={action}
                 autoHideDuration={6000}
                 />
-              <TextField 
-                onChange={e => this.onTextChanged('email', e)}
-                id='emailSignIn'
-                label='Email'
-                type='text'
-                variant='outlined'
-                value={email}
-              />
-              <TextField 
-                  onChange={e => this.onTextChanged('password', e)}
-                  id='passwordSignIn'
-                  label='Password'
-                  type='password'
-                  variant='outlined'
-                  value={password}
-              />
-              <Button
-                onClick={() => this.onSignInClick()}
-                size="large"
-                variant="contained"
-                color="primary">
-                Sign In
-              </Button>
+                <Card className='card'>
+                    <CardContent>
+                      <div
+                        className='button-container'
+                      >
+                        <SocialButton
+                          onSocialClick={onGoogleClick}
+                          text='Sign In With Google'
+                        />
+                      </div>
+                      <div
+                        className='text-container'
+                      >
+                          or
+                      </div>
+                      <div
+                        className='text-field'
+                      >
+                        <TextField 
+                          onChange={e => this.onTextChanged('email', e)}
+                          id='emailSignIn'
+                          label='Email'
+                          type='text'
+                          variant='outlined'
+                          value={email}
+                        />
+                      </div>
+                      <div
+                        className='text-field'
+                      >
+                        <TextField 
+                            onChange={e => this.onTextChanged('password', e)}
+                            id='passwordSignIn'
+                            label='Password'
+                            type='password'
+                            variant='outlined'
+                            value={password}
+                        />
+                      </div>
+                      <div
+                        className='button-container'
+                      >
+                        <Button
+                          onClick={() => this.onSignInClick()}
+                          size="large"
+                          variant="contained"
+                          color="primary">
+                          Sign In
+                        </Button>
+                      </div>
+                    </CardContent>
+                </Card>
             </div>
         )
     }

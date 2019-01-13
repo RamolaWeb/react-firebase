@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { TextField, Button, Snackbar } from '@material-ui/core'
+import { TextField, Button, Snackbar,
+    Card, CardContent } from '@material-ui/core'
 import PropTypes from 'prop-types'
+
+import SocialButton from '../SocialButton'
 import './style.css'
 
 export default class SignUp extends Component {
     static propTypes = {
-        onSignUp: PropTypes.func.isRequired
+      onGoogleClick: PropTypes.func.isRequired,
+      onSignUp: PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -52,6 +56,7 @@ export default class SignUp extends Component {
 
     render() {
         const { email, password, confirmPassword, open, action } = this.state
+        const { onGoogleClick } = this.props
         return(
             <div className='container'>
               <Snackbar 
@@ -60,37 +65,72 @@ export default class SignUp extends Component {
                 action={action}
                 autoHideDuration={6000}
                 />
-              <TextField 
-                onChange={e => this.onTextChanged('email', e)}
-                id='email'
-                label='Email'
-                type='text'
-                variant='outlined'
-                value={email}
-              />
-              <TextField 
-                  onChange={e => this.onTextChanged('password', e)}
-                  id='password'
-                  label='Password'
-                  type='password'
-                  variant='outlined'
-                  value={password}
-              />
-              <TextField 
-                  onChange={e => this.onTextChanged('confirmPassword', e)}
-                  id='confirmPassword'
-                  label='Confirm Password'
-                  type='password'
-                  variant='outlined'
-                  value={confirmPassword}
-              />
-              <Button
-                onClick={() => this.onSignUpClick()}
-                size="large"
-                variant="contained"
-                color="primary">
-                Sign Up
-              </Button>
+                <Card
+                  className='card'
+                >
+                    <CardContent>
+                        <div
+                          className='button-container'
+                        >
+                          <SocialButton
+                            onSocialClick={onGoogleClick}
+                            text='Sign Up With Google'
+                          />
+                        </div>
+                        <div
+                          className='text-container'
+                        >
+                            or
+                        </div>
+                        <div
+                          className='text-field'
+                        >
+                          <TextField 
+                            onChange={e => this.onTextChanged('email', e)}
+                            id='email'
+                            label='Email'
+                            type='text'
+                            variant='outlined'
+                            value={email}
+                          />
+                        </div>
+                        <div
+                          className='text-field'
+                        >
+                          <TextField 
+                            onChange={e => this.onTextChanged('password', e)}
+                            id='password'
+                            label='Password'
+                            type='password'
+                            variant='outlined'
+                            value={password}
+                          />
+                        </div>
+                        <div
+                          className='text-field'
+                        >
+                          <TextField 
+                            onChange={e => this.onTextChanged('confirmPassword', e)}
+                            id='confirmPassword'
+                            label='Confirm Password'
+                            type='password'
+                            variant='outlined'
+                            value={confirmPassword}
+                          />
+                        </div>
+                        <div
+                          className='button-container'
+                        >
+                          <Button
+                            onClick={() => this.onSignUpClick()}
+                            size="large"
+                            variant="contained"
+                            color="primary">
+                            Sign Up
+                          </Button>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         )
     }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { SignIn } from '../../components'
-import { signInWithEmailAndPassword } from '../../actions'
+import { signInWithEmailAndPassword, googleAuth } from '../../actions'
 import { isSignedIn, isSigningIn, isErrorInLogin, getErrorInLogin } from '../../reducers/login'
 
 class Login extends Component {
@@ -12,6 +12,7 @@ class Login extends Component {
       isLoggedIn: PropTypes.bool,
       isLoggingError: PropTypes.bool,
       errorMessageLogIn: PropTypes.string,
+      googleSignIn: PropTypes.func.isRequired,
       logIn: PropTypes.func.isRequired,
     }
 
@@ -23,14 +24,20 @@ class Login extends Component {
     }
 
     onSignInClick = (email, password) => {
-        const { logIn } = this.props
-        logIn(email, password)
+      const { logIn } = this.props
+      logIn(email, password)
+    }
+
+    onGoogleClickListener = () => {
+      const { googleSignIn } = this.props
+      googleSignIn()
     }
 
     render() {
         return (
           <div>
             <SignIn
+              onGoogleClick={() => this.onGoogleClickListener()}
               onSignIn={(email, password) => this.onSignInClick(email, password)}/>  
           </div>
           
@@ -53,4 +60,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   logIn: signInWithEmailAndPassword,
+  googleSignIn: googleAuth,
 })(Login)

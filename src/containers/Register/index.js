@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { SignUp } from '../../components'
-import { signUpWithEmailAndPassword } from '../../actions'
+import { signUpWithEmailAndPassword, registerGoogleAuth } from '../../actions'
 import { isSignUp, isSignedUp,
     isErrorInRegister, getErrorInRegister } from '../../reducers/register'
 
@@ -14,6 +14,7 @@ class Register extends Component {
     isRegistered: PropTypes.bool,
     isErrorRegister: PropTypes.bool,
     errorMessageInRegister: PropTypes.string,
+    googleSignUp: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
   }
 
@@ -29,10 +30,16 @@ class Register extends Component {
     register(email, password)
   }
 
+  onGoogleClickListener = () => {
+    const { googleSignUp } = this.props
+    googleSignUp()
+  }
+
   render() {
     return (
       <div>
         <SignUp
+          onGoogleClick={() => this.onGoogleClickListener()}
           onSignUp={(email, password) => this.onSignUpClick(email, password)}/>  
       </div>
       
@@ -54,5 +61,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
+  googleSignUp: registerGoogleAuth,
   register: signUpWithEmailAndPassword,
 })(Register)
