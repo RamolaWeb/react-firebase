@@ -8,7 +8,7 @@ const signUpWithEmailAndPassword = (email, password) => {
 }
 
 const googleAuth = () => {
-  return app.auth().signInWithPopup(googleAuthProvider)
+  return app.auth().signInWithRedirect(googleAuthProvider)
 }
 
 function* signUpWithEmailAndPasswordSaga(action) {

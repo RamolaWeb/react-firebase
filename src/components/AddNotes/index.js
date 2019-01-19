@@ -10,6 +10,7 @@ export default class AddNotes extends Component {
     notes: PropTypes.string.isRequired,
     onAddClick: PropTypes.func.isRequired,
     onUpdateText: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
   }
 
   onTextChange = (k, e) => {
@@ -18,16 +19,28 @@ export default class AddNotes extends Component {
   }
 
   render() {
-    const { notes, onAddClick } = this.props
+    const { notes, onAddClick, title } = this.props
     return(
       <div className='container'>
         <Card className='card'>
           <CardContent>
             <div className='text-container'>
               <TextField
+                onChange={e => this.onTextChange('title', e)}
+                id='titleField'
+                label='Title'
+                type='text'
+                variant='outlined'
+                value={title}
+              />
+            </div>
+            <div className='text-container'>
+              <TextField
+                multiline={true}
                 onChange={e => this.onTextChange('notes', e)}
                 id='notesField'
                 label='Add a notes'
+                rows={5}
                 type='text'
                 variant='outlined'
                 value={notes}
