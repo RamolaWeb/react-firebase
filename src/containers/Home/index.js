@@ -11,7 +11,7 @@ class Home extends Component {
     auth.onAuthStateChanged(user => {
       if (user) {
         const { history } = this.props
-        history.push('/dashboard')
+        history.push('/view')
       }
     })
   }

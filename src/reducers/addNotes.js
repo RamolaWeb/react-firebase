@@ -13,7 +13,7 @@ const initialState = Map({
 export default {
   addNotes: createReducer(initialState, {
     [ACTION_TYPES.SET_SAVE_NOTES]: (state, action) => {
-      return state.withMuations(stateMap => {
+      return state.withMutations(stateMap => {
         stateMap.set('isNotesSaving', false)
         stateMap.set('isNotesSaved', true)
       })
@@ -21,7 +21,7 @@ export default {
     [ACTION_TYPES.ERROR_SAVE_NOTES]: (state, action) => {
         const { error } = action
         const { message } = error
-        return state.withMuations(stateMap => {
+        return state.withMutations(stateMap => {
             stateMap.set('isNotesSaving', false)
             stateMap.set('isNotesSaved', false)
             stateMap.set('errorInNotesSaved', message)
@@ -29,7 +29,7 @@ export default {
         })
     },
     [ACTION_TYPES.START_SAVING_NOTES]: (state, action) => (
-      state.withMuations(stateMap => {
+      state.withMutations(stateMap => {
         stateMap.set('isNotesSaving', true)
         stateMap.set('isNotesSaved', false)
         stateMap.set('errorInNotesSaved', '')
