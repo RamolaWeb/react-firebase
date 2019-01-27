@@ -38,21 +38,33 @@ class ViewDashBoard extends Component {
     }
   }
 
+  componentDidMount() {
+    this.analysedDate()
+  }
+
   onDateChangeListener = date => {
     this.setState({
       selectedDate: date,
     }, () => {
-      const { fetchNotes } = this.props
-      const { selectedDate } = this.state
-      const startDate = new moment(selectedDate)
-      startDate.hour(0)
-      startDate.minute(0)
-      const endDate = new moment(selectedDate)
-      endDate.hour(23)
-      endDate.minute(59)
-      console.log(startDate.unix(), endDate.unix())
-      fetchNotes(startDate.unix(), endDate.unix())
+      this.analysedDate()
     })
+  }
+
+  analysedDate = selectedData => {
+    const { fetchNotes } = this.props
+    const { selectedDate } = this.state
+    const startDate = new moment(selectedDate)
+    startDate.hour(0)
+    startDate.minute(0)
+    const endDate = new moment(selectedDate)
+    endDate.hour(23)
+    endDate.minute(59)
+    fetchNotes(startDate.unix(), endDate.unix())
+  }
+
+  onAddClickListener = () => {
+    const { history } = this.props
+    history.push('/add')
   }
 
   render() {
@@ -62,6 +74,7 @@ class ViewDashBoard extends Component {
       <ViewDashBoardHolder
         notes={notes}
         selectedDate={selectedDate}
+        onAddClick={this.onAddClickListener}
         onDateChange={d => this.onDateChangeListener(d)}
       />
     )

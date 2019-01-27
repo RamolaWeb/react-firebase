@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Fab } from '@material-ui/core'
+import { Add } from '@material-ui/icons'
 
 import NotesList from '../NotesList'
 import TimePicker from '../TimePicker'
@@ -11,10 +13,11 @@ export default class ViewDashBoardHolder extends Component {
      notes: PropTypes.array.isRequired,
      selectedDate: PropTypes.object.isRequired,
      onDateChange: PropTypes.func.isRequired,
+     onAddClick: PropTypes.func.isRequired,
   }
 
   render() {
-    const { notes, selectedDate, onDateChange } = this.props
+    const { notes, selectedDate, onDateChange, onAddClick } = this.props
     return (
        <div className='container'>
           <TimePicker
@@ -24,6 +27,13 @@ export default class ViewDashBoardHolder extends Component {
           <NotesList
             notes={notes}
           />
+          <Fab
+            color="primary"
+            aria-label="Add"
+            onClick={onAddClick}
+          >
+           <Add />
+          </Fab>
        </div>
     )
   }

@@ -6,8 +6,10 @@ import { connect } from 'react-redux'
 import { AddNotes } from '../../components'
 
 import { addNotes } from '../../actions'
-import {isNotesSaving, isNotesSaved,
-  isErrorInNotesSaved, getErrorInNotesSaved } from '../../reducers/addNotes' 
+import {isNotesSaving,
+  isNotesSaved,
+  isErrorInNotesSaved,
+  getErrorInNotesSaved } from '../../reducers/addNotes' 
 
 class Dashboard extends Component {
 
@@ -38,6 +40,10 @@ class Dashboard extends Component {
     const { notes, title } = this.state
     const { saveNotes } = this.props
     saveNotes({title, notes})
+    this.setState({
+      notes: '',
+      title: '',
+    })
   }
 
   onUpdateTextValue = (key, v) => {
